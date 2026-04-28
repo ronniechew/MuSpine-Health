@@ -44,7 +44,7 @@ if (webinarForm) {
         e.preventDefault();
         const formData = new FormData(webinarForm);
         const name = formData.get('name');
-        
+
         // Premium Success Message
         const formContainer = webinarForm.parentElement;
         formContainer.innerHTML = `
