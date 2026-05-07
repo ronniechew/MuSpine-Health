@@ -208,9 +208,9 @@ header {
 .hero-doctor-img {
   width: 100%;
   max-width: 950px;
-  margin: 0 auto;
+  margin: -120px auto 0;
   height: auto;
-  display: block;
+  display: none;
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
@@ -457,35 +457,39 @@ header {
 }
 
 .secret-card {
-  padding: 40px 30px;
+  padding: 35px 30px;
   background: var(--white);
   border-radius: 20px;
   border: 1px solid var(--border);
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  min-height: 180px;
+  align-items: flex-start;
+  min-height: auto;
   transition: transform 0.3s ease;
+  box-shadow: var(--shadow);
 }
 
 .secret-number {
-  font-size: 5rem;
-  font-weight: 900;
-  color: #f1f5f9;
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  line-height: 1;
-  z-index: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--gradient-primary);
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 15px rgba(26, 43, 75, 0.2);
+  flex-shrink: 0;
 }
 
 .secret-card h3 {
   font-size: 1.15rem;
-  position: relative;
-  z-index: 1;
   color: var(--primary);
+  line-height: 1.5;
 }
 
 /* Pain Section */
@@ -667,11 +671,7 @@ header {
   height: 44px;
   border-radius: 50%;
   background: var(--gradient-teal);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+  object-fit: cover;
 }
 
 .patient-info h5 {
@@ -811,17 +811,18 @@ footer p {
   }
 
   .hero-doctor-img {
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
     width: 50%;
     object-fit: cover;
-    object-position: 85% center;
+    object-position: 100% 75%;
     mask-image: linear-gradient(to right, transparent 0%, black 25%),
-      linear-gradient(to top, transparent 0%, black 15%);
+      linear-gradient(to top, transparent 0%, black 10%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%),
-      linear-gradient(to top, transparent 0%, black 15%);
+      linear-gradient(to top, transparent 0%, black 10%);
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
     z-index: 0;
