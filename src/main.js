@@ -1,5 +1,16 @@
 import './style.css'
 
+// Webinar Configuration - Single Source of Truth
+const webinarConfig = {
+    date: '5月19日（星期二）',
+    time: '8:30 PM'
+};
+
+// Populate Webinar Date/Time
+document.querySelectorAll('[data-webinar-date]').forEach(el => el.textContent = webinarConfig.date);
+document.querySelectorAll('[data-webinar-time]').forEach(el => el.textContent = webinarConfig.time);
+document.querySelectorAll('[data-webinar-datetime]').forEach(el => el.textContent = `${webinarConfig.date}，晚上 ${webinarConfig.time}`);
+
 // Sticky Bar Logic
 const stickyBar = document.getElementById('sticky-bar');
 const heroForm = document.getElementById('register');
@@ -43,7 +54,7 @@ if (webinarForm) {
     webinarForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(webinarForm);
-        const name = formData.get('name');
+        const name = formData.get('full_name');
 
         // Premium Success Message
         const formContainer = webinarForm.parentElement;
@@ -56,7 +67,7 @@ if (webinarForm) {
                 <p style="color: var(--text-medium); margin-bottom: 24px;">感谢您，${name}。确认链接已发送至您的 WhatsApp 或电子邮箱。</p>
                 <div style="background: var(--bg-light); padding: 15px; border-radius: 8px; font-size: 0.9rem; border: 1px dashed var(--border);">
                     <strong>讲座主题:</strong> 无需手术缓解坐骨神经痛之医疗方案分享<br>
-                    <strong>直播日期:</strong> 本周日，晚上 8:00 PM (GMT+8)
+                    <strong>直播日期:</strong> ${webinarConfig.date}，晚上 ${webinarConfig.time} (GMT+8)
                 </div>
             </div>
         `;

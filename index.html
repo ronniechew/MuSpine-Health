@@ -11,6 +11,11 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <meta name="theme-color" content="#1a2b4b">
+
+    <!-- GHL External Tracking Script -->
+    <script src="https://link.msgsndr.com/js/external-tracking.js"
+        data-tracking-id="tk_a879775764f44336962049f21714a605">
+        </script>
 </head>
 
 <body>
@@ -65,16 +70,17 @@
                             <div class="webinar-badge">
                                 <div class="badge-label">下一场线上讲座</div>
                                 <div class="badge-content">
-                                    <span class="date">5月19日（星期二）</span>
+                                    <span class="date" data-webinar-date></span>
                                     <span class="divider"></span>
-                                    <span class="time">8:30 PM</span>
+                                    <span class="time" data-webinar-time></span>
                                 </div>
                             </div>
                             <form id="webinar-form">
                                 <div class="form-row">
                                     <div class="form-group">
-                                        <label for="name">全名 (Full Name)</label>
-                                        <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                                        <label for="full_name">全名 (Full Name)</label>
+                                        <input type="text" id="full_name" name="full_name" placeholder="请输入您的姓名"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">电话号码 (WhatsApp)</label>
@@ -161,7 +167,7 @@
                         </div>
                     </div>
                     <div class="pain-img-container">
-                        <img src="/spine_l4_l5.png" alt="脊柱健康视觉图">
+                        <img src="/spine2.png" alt="脊柱健康视觉图">
                     </div>
                 </div>
             </div>
@@ -220,6 +226,12 @@
                 <div class="text-center">
                     <h2 class="section-title">无需手术，重获健康</h2>
                     <p class="section-subtitle">来自槟城真实患者的反馈，他们选择了结构化修复而非临时解决方案。</p>
+                </div>
+
+                <div class="video-container mb-6">
+                    <iframe src="https://www.youtube.com/embed/Mdm8tdl5Z3o" title="Patient Testimonial" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
                 </div>
 
                 <div class="testimonials-grid">
@@ -311,7 +323,8 @@
                 <p class="mb-6" style="font-size: 1.25rem;">名额有限。本次线上讲座专为希望获得真正解决方案的有心人士设计。</p>
                 <a href="#register" class="btn btn-secondary"
                     style="padding: 20px 48px; font-size: 1.25rem;">立即确保我的名额</a>
-                <p style="margin-top: 24px; opacity: 0.8; font-size: 0.9rem;">下场直播：5月19日（星期二），晚上 8:30 PM</p>
+                <p style="margin-top: 24px; opacity: 0.8; font-size: 0.9rem;">下场直播：<span data-webinar-datetime></span>
+                </p>
             </div>
         </section>
     </main>
