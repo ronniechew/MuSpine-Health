@@ -474,7 +474,7 @@ header {
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--white);
-  background: var(--gradient-primary);
+  background: var(--secondary);
   width: 54px;
   height: 54px;
   display: flex;
