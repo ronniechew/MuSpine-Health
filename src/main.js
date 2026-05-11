@@ -76,6 +76,10 @@ if (webinarForm) {
             }
         }
 
+        // Generate a unique Event ID for Meta deduplication (Client + Server CAPI)
+        const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+        formData.append('event_id', eventId);
+
         const name = fullName;
 
         // Loading State
@@ -102,7 +106,7 @@ if (webinarForm) {
                 fbq('track', 'Lead', {
                     content_name: 'Sciatica Recovery Webinar',
                     currency: 'MYR'
-                });
+                }, { eventID: eventId }); // Pass eventID for deduplication
             }
 
             // Premium Success Message
