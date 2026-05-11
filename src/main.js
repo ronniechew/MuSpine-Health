@@ -68,6 +68,14 @@ if (webinarForm) {
         formData.set('phone', phone);
         formData.set('email', email);
 
+        // Capture URL parameters (UTMs & fbclid) and send them to GoHighLevel CRM
+        const urlParams = new URLSearchParams(window.location.search);
+        for (const [key, value] of urlParams.entries()) {
+            if (!formData.has(key)) {
+                formData.append(key, value);
+            }
+        }
+
         const name = fullName;
 
         // Loading State
@@ -82,6 +90,20 @@ if (webinarForm) {
                 method: 'POST',
                 body: formData
             });
+
+            // Fire Meta Pixel Event with Advanced Matching to improve ad attribution
+            if (typeof fbq === 'function') {
+                fbq('init', '1627776708278600', {
+                    em: email.toLowerCase().trim(),
+                    ph: phone.trim().replace(/\D/g, ''),
+                    fn: fullName.split(' ')[0],
+                    ln: fullName.split(' ').slice(1).join(' ') || undefined
+                });
+                fbq('track', 'Lead', {
+                    content_name: 'Sciatica Recovery Webinar',
+                    currency: 'MYR'
+                });
+            }
 
             // Premium Success Message
             const formContainer = webinarForm.parentElement;
