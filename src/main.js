@@ -54,7 +54,21 @@ if (webinarForm) {
     webinarForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(webinarForm);
-        const name = formData.get('full_name');
+        
+        const fullName = formData.get('full_name')?.trim() || '';
+        const phone = formData.get('phone')?.trim() || '';
+        const email = formData.get('email')?.trim() || '';
+
+        if (!fullName || !phone) {
+            alert("请填写所有必填字段，不能仅输入空格。(Please fill in all required fields.)");
+            return;
+        }
+
+        formData.set('full_name', fullName);
+        formData.set('phone', phone);
+        formData.set('email', email);
+
+        const name = fullName;
 
         // Loading State
         const submitBtn = webinarForm.querySelector('button[type="submit"]');

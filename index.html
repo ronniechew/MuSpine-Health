@@ -16,6 +16,27 @@
     <script src="https://link.msgsndr.com/js/external-tracking.js"
         data-tracking-id="tk_a879775764f44336962049f21714a605">
         </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1627776708278600');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1627776708278600&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body>
@@ -80,11 +101,11 @@
                                     <div class="form-group">
                                         <label for="full_name">全名 (Full Name)</label>
                                         <input type="text" id="full_name" name="full_name" placeholder="请输入您的姓名"
-                                            required>
+                                            required pattern=".*\S+.*" title="不能仅输入空格 (Cannot be only spaces)">
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">电话号码 (WhatsApp)</label>
-                                        <input type="tel" id="phone" name="phone" placeholder="+6012-345 6789" required>
+                                        <input type="tel" id="phone" name="phone" placeholder="+6012-345 6789" required pattern=".*\S+.*" title="不能仅输入空格 (Cannot be only spaces)">
                                     </div>
                                 </div>
                                 <div class="form-group">
