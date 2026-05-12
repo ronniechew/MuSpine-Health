@@ -76,6 +76,40 @@ if (webinarForm) {
             }
         }
 
+        // Explicitly map campaign/adset/ad IDs if they are passed via standard UTM parameters
+        // This makes it easier to track in GHL without manual mapping
+        const campaignId = urlParams.get('campaign_id') || urlParams.get('utm_campaign') || urlParams.get('utm_id');
+        const adSetId = urlParams.get('adset_id') || urlParams.get('utm_term');
+        const adId = urlParams.get('ad_id') || urlParams.get('utm_content');
+
+        if (campaignId && !formData.has('campaign_id')) formData.append('campaign_id', campaignId);
+        if (adSetId && !formData.has('adset_id')) formData.append('adset_id', adSetId);
+        if (adId && !formData.has('ad_id')) formData.append('ad_id', adId);
+
+        // Capture Additional Useful Metadata for Attribution
+        const advancedMetadata = {
+            page_url: window.location.href,
+            referrer: document.referrer || 'Direct',
+            user_agent: navigator.userAgent,
+            browser_language: navigator.language,
+            device_resolution: `${window.screen.width}x${window.screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timestamp: new Date().toISOString()
+        };
+
+        for (const [key, value] of Object.entries(advancedMetadata)) {
+            if (!formData.has(key)) {
+                formData.append(key, value);
+            }
+        }
+
+        // Extract Meta cookies (_fbp, _fbc) for better CAPI matching
+        document.cookie.split(';').forEach(cookie => {
+            const [name, val] = cookie.trim().split('=');
+            if (name === '_fbp' && !formData.has('fbp')) formData.append('fbp', val);
+            if (name === '_fbc' && !formData.has('fbc')) formData.append('fbc', val);
+        });
+
         // Generate a unique Event ID for Meta deduplication (Client + Server CAPI)
         const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
         formData.append('event_id', eventId);
