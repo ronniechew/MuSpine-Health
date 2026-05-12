@@ -96,18 +96,18 @@ if (webinarForm) {
             });
 
             // Fire Meta Pixel Event with Advanced Matching to improve ad attribution
-            if (typeof fbq === 'function') {
-                fbq('init', '1627776708278600', {
-                    em: email.toLowerCase().trim(),
-                    ph: phone.trim().replace(/\D/g, ''),
-                    fn: fullName.split(' ')[0],
-                    ln: fullName.split(' ').slice(1).join(' ') || undefined
-                });
-                fbq('track', 'Lead', {
-                    content_name: 'Sciatica Recovery Webinar',
-                    currency: 'MYR'
-                }, { eventID: eventId }); // Pass eventID for deduplication
-            }
+            // if (typeof fbq === 'function') {
+            //     fbq('init', '1627776708278600', {
+            //         em: email.toLowerCase().trim(),
+            //         ph: phone.trim().replace(/\D/g, ''),
+            //         fn: fullName.split(' ')[0],
+            //         ln: fullName.split(' ').slice(1).join(' ') || undefined
+            //     });
+            //     fbq('track', 'Lead', {
+            //         content_name: 'Sciatica Recovery Webinar',
+            //         currency: 'MYR'
+            //     }, { eventID: eventId }); // Pass eventID for deduplication
+            // }
 
             // Premium Success Message
             const formContainer = webinarForm.parentElement;
