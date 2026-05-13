@@ -48,6 +48,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+function isValidFullName(value) {
+    const trimmedValue = value.trim();
+    const lettersOnly = trimmedValue.replace(/[^\p{L}\p{M}\s'-]/gu, '').replace(/[\s'-]/g, '');
+
+    return lettersOnly.length >= 2;
+}
+
+function isValidPhoneNumber(value) {
+    const digitsOnly = value.replace(/\D/g, '');
+
+    return digitsOnly.length >= 8;
+}
+
 // Form Submission
 const webinarForm = document.getElementById('webinar-form');
 if (webinarForm) {
@@ -59,8 +72,13 @@ if (webinarForm) {
         const phone = formData.get('phone')?.trim() || '';
         const email = formData.get('email')?.trim() || '';
 
-        if (!fullName || !phone) {
-            alert("请填写所有必填字段，不能仅输入空格。(Please fill in all required fields.)");
+        if (!isValidFullName(fullName)) {
+            alert("请输入有效姓名，至少包含2个文字字符。(Please enter a valid name with at least 2 letters.)");
+            return;
+        }
+
+        if (!isValidPhoneNumber(phone)) {
+            alert("请输入有效电话号码，至少包含8个数字。(Please enter a valid phone number with at least 8 digits.)");
             return;
         }
 
