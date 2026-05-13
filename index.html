@@ -12,6 +12,46 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <meta name="theme-color" content="#1a2b4b">
 
+    <script>
+        const originalFetch = window.fetch?.bind(window);
+
+        function getTrackingEventType(body) {
+            if (!body) {
+                return null;
+            }
+
+            try {
+                if (typeof body === 'string') {
+                    return JSON.parse(body)?.type || null;
+                }
+
+                if (body instanceof FormData) {
+                    const eventPayload = body.get('event');
+                    if (typeof eventPayload === 'string') {
+                        return JSON.parse(eventPayload)?.type || null;
+                    }
+                }
+            } catch (error) {
+                console.warn('Unable to inspect tracking payload.', error);
+            }
+
+            return null;
+        }
+
+        if (originalFetch) {
+            window.fetch = async (input, init) => {
+                const requestUrl = typeof input === 'string' ? input : input?.url;
+                const eventType = getTrackingEventType(init?.body);
+
+                if (requestUrl?.includes('/external-tracking/events') && eventType === 'external_form_submission') {
+                    return new Response(null, { status: 204, statusText: 'No Content' });
+                }
+
+                return originalFetch(input, init);
+            };
+        }
+    </script>
+
     <!-- GHL External Tracking Script -->
     <script src="https://link.msgsndr.com/js/external-tracking.js"
         data-tracking-id="tk_a879775764f44336962049f21714a605">
@@ -101,11 +141,11 @@
                                     <div class="form-group">
                                         <label for="full_name">全名 (Full Name)</label>
                                         <input type="text" id="full_name" name="full_name" placeholder="请输入您的姓名"
-                                            required pattern=".*\S+.*" title="不能仅输入空格 (Cannot be only spaces)">
+                                            required minlength="2" pattern=".*\S+.*" title="请输入至少2个字符，不能仅输入符号或空格 (Enter at least 2 characters)">
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">电话号码 (WhatsApp)</label>
-                                        <input type="tel" id="phone" name="phone" placeholder="+6012-345 6789" required pattern=".*\S+.*" title="不能仅输入空格 (Cannot be only spaces)">
+                                        <input type="tel" id="phone" name="phone" placeholder="+6012-345 6789" required minlength="8" pattern=".*\S+.*" title="请输入有效电话号码，不能仅输入符号或空格 (Enter a valid phone number)">
                                     </div>
                                 </div>
                                 <div class="form-group">
